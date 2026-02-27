@@ -32,7 +32,7 @@ export const signup = async (
     const token = jwttoken.sign({
       id: user.id,
       email: user.email,
-      role: user.role,
+      role: user.role as UserRole,
     });
 
     cookies.set(res, 'token', token);
@@ -80,7 +80,7 @@ export const signin = async (
     const token = jwttoken.sign({
       id: user.id,
       email: user.email,
-      role: user.role,
+      role: user.role as UserRole,
     });
 
     cookies.set(res, 'token', token);

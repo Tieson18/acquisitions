@@ -1,8 +1,8 @@
-export const formatValidationError = (errors) => {
-  if (!errors || !errors.issues) return 'Validation failed';
+interface ValidationError {
+  issues?: ReadonlyArray<{ message: string }>;
+}
 
-  if (Array.isArray(errors.issues))
-    return errors.issues.map((i) => i.message).join(', ');
-
-  return JSON.stringify(errors);
+export const formatValidationError = (errors: ValidationError): string => {
+  if (!errors?.issues?.length) return 'Validation failed';
+  return errors.issues.map((i) => i.message).join(', ');
 };

@@ -27,7 +27,12 @@ export const comparePassword = async (
   }
 };
 
-export const authenticateUser = async ({ email, password }) => {
+interface AuthenticateUserInput {
+  email: string;
+  password: string;
+}
+
+export const authenticateUser = async ({ email, password }: AuthenticateUserInput) => {
   try {
     const [user] = await db
       .select()
@@ -48,15 +53,23 @@ export const authenticateUser = async ({ email, password }) => {
   }
 };
 
-export const createUser = async ({ name, email, password, role = 'user' }) => {
+interface CreateUserInput {
+  name: string;
+  email: string;
+  password: string;
+  role?: UserRole;
+}
+
+export const createUser = async ({ name, email, password, role = 'user' }: CreateUserInput) => {
   try {
-    const checkUser = db
+    const existingUsers = await db
       .select()
       .from(users)
       .where(eq(users.email, email))
       .limit(1);
 
-    if ((await checkUser).length > 0) throw new Error('User already exist');
+    if (existingUsers.length > 0) throw new Error('User already exist');
+
     const password_hash = await hashPassword(password);
     const [newUser] = await db
       .insert(users)

@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRouter from '#routes/auth.routes.ts';
+import securityMiddleware from '#middleware/security.middleware.ts';
 
 const app = express();
 
@@ -12,12 +13,13 @@ app.use(helmet());
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   morgan('combined', {
     stream: { write: (message: string) => logger.info(message.trim()) },
   })
 );
-app.use(cookieParser());
+app.use(securityMiddleware); // Apply security middleware globally
 
 app.get('/', (req, res) => {
   logger.info('Received a request to the root endpoint');
