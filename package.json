@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "imports": {
+    "#config/*": "./src/config/*",
+    "#validations/*": "./src/validations/*",
+    "#controllers/*": "./src/controllers/*",
+    "#middleware/*": "./src/middleware/*",
+    "#services/*": "./src/services/*",
+    "#routes/*": "./src/routes/*",
+    "#models/*": "./src/models/*",
+    "#utils/*": "./src/utils/*"
+  },
   "scripts": {
     "dev": "node --watch src/index.ts",
     "start": "ts-node src/index.ts",
@@ -22,15 +32,28 @@
   "type": "module",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "drizzle-orm": "^0.45.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "winston": "^3.19.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^25.2.2",
-    "drizzle-kit": "^0.31.9",
+    "drizzle-kit": "^0.18.1",
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
