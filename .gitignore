@@ -11,7 +11,15 @@ node_modules
 dist
 dist-ssr
 *.local
+# Environment files - sensitive credentials
 .env
+.env.local
+.env.development
+.env.production
+.env.*.local
+# Neon Local data
+neon-local-data/
+
 
 # Editor directories and files
 .vscode/*
@@ -22,4 +30,5 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.sw?.neon_local/
+.neon_local/

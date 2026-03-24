@@ -1,9 +1,4 @@
-import arcjet, {
-  shield,
-  detectBot,
-  tokenBucket,
-  slidingWindow,
-} from '@arcjet/node';
+import arcjet, { shield, detectBot, slidingWindow } from '@arcjet/node';
 
 const aj = arcjet({
   // Get your site key from https://app.arcjet.com and set it as an environment

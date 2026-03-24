@@ -14,8 +14,8 @@
     "#utils/*": "./src/utils/*"
   },
   "scripts": {
-    "dev": "node --watch src/index.ts",
     "start": "ts-node src/index.ts",
+    "dev": "node --watch src/index.ts",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
@@ -24,7 +24,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+   "dev:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1",
+   "prod:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1"
   },
   "keywords": [],
   "author": "",
