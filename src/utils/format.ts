@@ -1,8 +1,6 @@
-interface ValidationError {
-  issues?: ReadonlyArray<{ message: string }>;
-}
+import type { ValidationErrorShape } from '#types';
 
-export const formatValidationError = (errors: ValidationError): string => {
+export const formatValidationError = (errors: ValidationErrorShape): string => {
   if (!errors?.issues?.length) return 'Validation failed';
   return errors.issues.map((i) => i.message).join(', ');
 };

@@ -1,6 +1,7 @@
 import { db } from '#config/database.ts';
 import logger from '#config/logger.ts';
 import { users } from '#models/user.model.ts';
+import type { LoginPayload, CreateUserDto } from '#types';
 import bcrypt from 'bcrypt';
 import { eq } from 'drizzle-orm';
 
@@ -27,12 +28,7 @@ export const comparePassword = async (
   }
 };
 
-interface AuthenticateUserInput {
-  email: string;
-  password: string;
-}
-
-export const authenticateUser = async ({ email, password }: AuthenticateUserInput) => {
+export const authenticateUser = async ({ email, password }: LoginPayload) => {
   try {
     const [user] = await db
       .select()
@@ -53,14 +49,12 @@ export const authenticateUser = async ({ email, password }: AuthenticateUserInpu
   }
 };
 
-interface CreateUserInput {
-  name: string;
-  email: string;
-  password: string;
-  role?: UserRole;
-}
-
-export const createUser = async ({ name, email, password, role = 'user' }: CreateUserInput) => {
+export const createUser = async ({
+  name,
+  email,
+  password,
+  role = 'user',
+}: CreateUserDto) => {
   try {
     const existingUsers = await db
       .select()

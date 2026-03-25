@@ -1,5 +1,6 @@
 import aj from '#config/arcjet.ts';
 import logger from '#config/logger.ts';
+import type { UserRole } from '#types';
 import { slidingWindow } from '@arcjet/node';
 import type { NextFunction, Request, Response } from 'express';
 

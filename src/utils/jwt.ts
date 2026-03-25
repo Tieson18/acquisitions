@@ -1,11 +1,12 @@
 import logger from '#config/logger.ts';
+import type { JwtPayload } from '#types';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'chang-in-production';
 const JWT_EXPIRES_IN = '1d';
 
 export const jwttoken = {
-  sign: (payload: TokenPayload): string => {
+  sign: (payload: JwtPayload): string => {
     try {
       return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
     } catch (e) {

@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.ts",
   "imports": {
+    "#types": "./src/types/index.ts",
+    "#types/*": "./src/types/*",
     "#config/*": "./src/config/*",
     "#validations/*": "./src/validations/*",
     "#controllers/*": "./src/controllers/*",

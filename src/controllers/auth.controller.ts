@@ -1,4 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
+import type { UserRole } from '#types';
 import logger from '#config/logger.ts';
 import { formatValidationError } from '#utils/format.ts';
 import { signupSchema, signinSchema } from '#validations/auth.validation.ts';
