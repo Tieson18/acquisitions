@@ -42,7 +42,15 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
-
 app.use('/api/users', userRouter);
+
+// Catch-all route for handling 404 Not Found errors
+app.use((req, res) => {
+  logger.warn(`404 Not Found: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({
+    error: 'Not Found',
+    message: 'The requested resource was not found',
+  });
+});
 
 export default app;
