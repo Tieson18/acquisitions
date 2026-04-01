@@ -26,7 +26,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/acquisitions-app
+          images: ${{ secrets.DOCKER_USERNAME }}/k8s-demo-api
           tags: |
             type=ref,event=branch
             type=sha

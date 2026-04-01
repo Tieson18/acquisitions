@@ -21,7 +21,7 @@ export const getAllUsers = async () => {
     return allUsers;
   } catch (e) {
     logger.error('Error fetching users', e);
-    throw new Error('Error fetching users');
+    throw new Error('Error fetching users', { cause: e });
   }
 };
 

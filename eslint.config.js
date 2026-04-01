@@ -9,7 +9,7 @@ export default [
   ...tseslint.configs.recommended,
 
   {
-    files: ['**/*.ts'],
+    files: ['**/*.{js,ts}'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -43,6 +43,7 @@ export default [
       'no-var': 'error',
       'object-shorthand': 'error',
       'prefer-arrow-callback': 'error',
+      '@typescript-eslint/no-namespace': 'off',
     },
   },
 
