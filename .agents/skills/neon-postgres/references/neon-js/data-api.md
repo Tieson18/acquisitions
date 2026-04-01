@@ -8,8 +8,8 @@ Complete reference for PostgREST-style database queries using `@neondatabase/neo
 
 ```typescript
 // lib/db/client.ts
-import { createClient } from "@neondatabase/neon-js";
-import type { Database } from "./database.types";
+import { createClient } from '@neondatabase/neon-js';
+import type { Database } from './database.types';
 
 export const dbClient = createClient<Database>({
   auth: { url: process.env.NEXT_PUBLIC_NEON_AUTH_URL! },
@@ -20,8 +20,8 @@ export const dbClient = createClient<Database>({
 ### React SPA
 
 ```typescript
-import { createClient } from "@neondatabase/neon-js";
-import { BetterAuthReactAdapter } from "@neondatabase/neon-js/auth/react/adapters";
+import { createClient } from '@neondatabase/neon-js';
+import { BetterAuthReactAdapter } from '@neondatabase/neon-js/auth/react/adapters';
 
 const client = createClient<Database>({
   auth: {
@@ -35,7 +35,7 @@ const client = createClient<Database>({
 ### Node.js Backend
 
 ```typescript
-import { createClient } from "@neondatabase/neon-js";
+import { createClient } from '@neondatabase/neon-js';
 
 const client = createClient<Database>({
   auth: { url: process.env.NEON_AUTH_URL! },
@@ -54,23 +54,23 @@ All query methods follow PostgREST syntax (same as Supabase).
 **Basic select:**
 
 ```typescript
-const { data, error } = await client.from("items").select();
+const { data, error } = await client.from('items').select();
 ```
 
 **Select specific columns:**
 
 ```typescript
-const { data } = await client.from("items").select("id, name, status");
+const { data } = await client.from('items').select('id, name, status');
 ```
 
 **Select with filters:**
 
 ```typescript
 const { data } = await client
-  .from("items")
-  .select("id, name, status")
-  .eq("status", "active")
-  .order("created_at", { ascending: false })
+  .from('items')
+  .select('id, name, status')
+  .eq('status', 'active')
+  .order('created_at', { ascending: false })
   .limit(10);
 ```
 
@@ -78,9 +78,9 @@ const { data } = await client
 
 ```typescript
 const { data, error } = await client
-  .from("items")
-  .select("*")
-  .eq("id", 1)
+  .from('items')
+  .select('*')
+  .eq('id', 1)
   .single();
 ```
 
@@ -90,8 +90,8 @@ const { data, error } = await client
 
 ```typescript
 const { data, error } = await client
-  .from("items")
-  .insert({ name: "New Item", status: "pending" })
+  .from('items')
+  .insert({ name: 'New Item', status: 'pending' })
   .select()
   .single();
 ```
@@ -100,10 +100,10 @@ const { data, error } = await client
 
 ```typescript
 const { data, error } = await client
-  .from("items")
+  .from('items')
   .insert([
-    { name: "Item 1", status: "pending" },
-    { name: "Item 2", status: "pending" },
+    { name: 'Item 1', status: 'pending' },
+    { name: 'Item 2', status: 'pending' },
   ])
   .select();
 ```
@@ -113,16 +113,16 @@ const { data, error } = await client
 **Update with filter:**
 
 ```typescript
-await client.from("items").update({ status: "completed" }).eq("id", 1);
+await client.from('items').update({ status: 'completed' }).eq('id', 1);
 ```
 
 **Update and return data:**
 
 ```typescript
 const { data, error } = await client
-  .from("items")
-  .update({ status: "completed" })
-  .eq("id", 1)
+  .from('items')
+  .update({ status: 'completed' })
+  .eq('id', 1)
   .select()
   .single();
 ```
@@ -132,16 +132,16 @@ const { data, error } = await client
 **Delete single row:**
 
 ```typescript
-await client.from("items").delete().eq("id", 1);
+await client.from('items').delete().eq('id', 1);
 ```
 
 **Delete and return data:**
 
 ```typescript
 const { data, error } = await client
-  .from("items")
+  .from('items')
   .delete()
-  .eq("id", 1)
+  .eq('id', 1)
   .select()
   .single();
 ```
@@ -150,8 +150,8 @@ const { data, error } = await client
 
 ```typescript
 await client
-  .from("items")
-  .upsert({ id: 1, name: "Updated Item", status: "active" });
+  .from('items')
+  .upsert({ id: 1, name: 'Updated Item', status: 'active' });
 ```
 
 ---
@@ -251,22 +251,22 @@ const pageSize = 10;
 
 ```typescript
 const { data } = await client
-  .from("posts")
-  .select("id, title, author:users(name, email)");
+  .from('posts')
+  .select('id, title, author:users(name, email)');
 ```
 
 **Many-to-many:**
 
 ```typescript
 const { data } = await client
-  .from("posts")
-  .select("id, title, tags:post_tags(tag:tags(name))");
+  .from('posts')
+  .select('id, title, tags:post_tags(tag:tags(name))');
 ```
 
 **Nested relationships:**
 
 ```typescript
-const { data } = await client.from("posts").select(`
+const { data } = await client.from('posts').select(`
     id,
     title,
     author:users(
@@ -296,8 +296,8 @@ npx neon-js gen-types --db-url "$DATABASE_URL" --output lib/db/database.types.ts
 **Use types in client:**
 
 ```typescript
-import { createClient } from "@neondatabase/neon-js";
-import type { Database } from "./database.types";
+import { createClient } from '@neondatabase/neon-js';
+import type { Database } from './database.types';
 
 export const dbClient = createClient<Database>({
   auth: { url: process.env.NEXT_PUBLIC_NEON_AUTH_URL! },
@@ -318,12 +318,12 @@ export const dbClient = createClient<Database>({
 **Check for errors:**
 
 ```typescript
-const { data, error } = await client.from("items").select();
+const { data, error } = await client.from('items').select();
 
 if (error) {
-  console.error("Database error:", error.message);
-  console.error("Error code:", error.code);
-  console.error("Error details:", error.details);
+  console.error('Database error:', error.message);
+  console.error('Error code:', error.code);
+  console.error('Error details:', error.details);
   return;
 }
 
@@ -374,11 +374,11 @@ export default async function PostsPage() {
 
 ```typescript
 // app/api/posts/route.ts
-import { dbClient } from "@/lib/db/client";
-import { NextResponse } from "next/server";
+import { dbClient } from '@/lib/db/client';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const { data, error } = await dbClient.from("posts").select();
+  const { data, error } = await dbClient.from('posts').select();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -391,7 +391,7 @@ export async function POST(request: Request) {
   const body = await request.json();
 
   const { data, error } = await dbClient
-    .from("posts")
+    .from('posts')
     .insert(body)
     .select()
     .single();
@@ -456,7 +456,7 @@ The Neon JS SDK uses the same PostgREST API as Supabase, making migration straig
 **Before (Supabase):**
 
 ```typescript
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
 const client = createClient(SUPABASE_URL, SUPABASE_KEY);
 ```
@@ -464,7 +464,7 @@ const client = createClient(SUPABASE_URL, SUPABASE_KEY);
 **After (Neon):**
 
 ```typescript
-import { createClient, SupabaseAuthAdapter } from "@neondatabase/neon-js";
+import { createClient, SupabaseAuthAdapter } from '@neondatabase/neon-js';
 
 const client = createClient({
   auth: { adapter: SupabaseAuthAdapter(), url: NEON_AUTH_URL },
@@ -477,5 +477,5 @@ const client = createClient({
 ```typescript
 // Works identically in both
 await client.auth.signInWithPassword({ email, password });
-const { data } = await client.from("items").select();
+const { data } = await client.from('items').select();
 ```

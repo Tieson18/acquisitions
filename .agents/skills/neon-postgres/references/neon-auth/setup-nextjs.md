@@ -36,7 +36,7 @@ NEXT_PUBLIC_NEON_AUTH_URL=https://ep-xxx.neonauth.c-2.us-east-2.aws.neon.build/d
 Create `app/api/auth/[...path]/route.ts`:
 
 ```typescript
-import { authApiHandler } from "@neondatabase/auth/next";
+import { authApiHandler } from '@neondatabase/auth/next';
 // Or: import { authApiHandler } from "@neondatabase/neon-js/auth/next";
 
 export const { GET, POST } = authApiHandler();
@@ -55,7 +55,7 @@ This creates endpoints for:
 Create `lib/auth/client.ts`:
 
 ```typescript
-import { createAuthClient } from "@neondatabase/auth/next";
+import { createAuthClient } from '@neondatabase/auth/next';
 // Or: import { createAuthClient } from "@neondatabase/neon-js/auth/next";
 
 export const authClient = createAuthClient();

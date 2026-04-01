@@ -8,7 +8,12 @@ export const cookies = {
     maxAge: 15 * 60 * 1000,
   }),
 
-  set: (res: Response, name: string, value: string, options: CookieOptions = {}): void => {
+  set: (
+    res: Response,
+    name: string,
+    value: string,
+    options: CookieOptions = {}
+  ): void => {
     res.cookie(name, value, { ...cookies.getOption(), ...options });
   },
 

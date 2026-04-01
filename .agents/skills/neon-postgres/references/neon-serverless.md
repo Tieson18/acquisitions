@@ -37,11 +37,11 @@ Always use environment variables:
 
 ```typescript
 // For HTTP queries
-import { neon } from "@neondatabase/serverless";
+import { neon } from '@neondatabase/serverless';
 const sql = neon(process.env.DATABASE_URL!);
 
 // For WebSocket connections
-import { Pool } from "@neondatabase/serverless";
+import { Pool } from '@neondatabase/serverless';
 const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 ```
 
@@ -49,7 +49,7 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 
 ```typescript
 // AVOID
-const sql = neon("postgres://username:password@host.neon.tech/neondb");
+const sql = neon('postgres://username:password@host.neon.tech/neondb');
 ```
 
 ## HTTP Queries with `neon` function
@@ -67,14 +67,14 @@ const [post] = await sql`SELECT * FROM posts WHERE id = ${postId}`;
 For manually constructed queries:
 
 ```typescript
-const [post] = await sql.query("SELECT * FROM posts WHERE id = $1", [postId]);
+const [post] = await sql.query('SELECT * FROM posts WHERE id = $1', [postId]);
 ```
 
 **Never concatenate user input:**
 
 ```typescript
 // AVOID: SQL Injection Risk
-const [post] = await sql("SELECT * FROM posts WHERE id = " + postId);
+const [post] = await sql('SELECT * FROM posts WHERE id = ' + postId);
 ```
 
 ### Configuration Options
@@ -100,8 +100,8 @@ Use for `node-postgres` compatibility, interactive transactions, or session supp
 For Node.js v21 and earlier:
 
 ```typescript
-import { Pool, neonConfig } from "@neondatabase/serverless";
-import ws from "ws";
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import ws from 'ws';
 
 // Required for Node.js < v22
 neonConfig.webSocketConstructor = ws;
@@ -119,11 +119,11 @@ export default async (req: Request, ctx: ExecutionContext) => {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 
   try {
-    const { rows } = await pool.query("SELECT * FROM users");
+    const { rows } = await pool.query('SELECT * FROM users');
     return new Response(JSON.stringify(rows));
   } catch (err) {
     console.error(err);
-    return new Response("Database error", { status: 500 });
+    return new Response('Database error', { status: 500 });
   } finally {
     ctx.waitUntil(pool.end());
   }
@@ -145,9 +145,9 @@ const [newUser, newProfile] = await sql.transaction(
     sql`INSERT INTO profiles(user_id, bio) VALUES(${userId}, ${bio})`,
   ],
   {
-    isolationLevel: "ReadCommitted",
+    isolationLevel: 'ReadCommitted',
     readOnly: false,
-  },
+  }
 );
 ```
 
@@ -159,19 +159,19 @@ For complex transactions with conditional logic:
 const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
 const client = await pool.connect();
 try {
-  await client.query("BEGIN");
+  await client.query('BEGIN');
   const {
     rows: [{ id }],
-  } = await client.query("INSERT INTO users(name) VALUES($1) RETURNING id", [
+  } = await client.query('INSERT INTO users(name) VALUES($1) RETURNING id', [
     name,
   ]);
-  await client.query("INSERT INTO profiles(user_id, bio) VALUES($1, $2)", [
+  await client.query('INSERT INTO profiles(user_id, bio) VALUES($1, $2)', [
     id,
     bio,
   ]);
-  await client.query("COMMIT");
+  await client.query('COMMIT');
 } catch (err) {
-  await client.query("ROLLBACK");
+  await client.query('ROLLBACK');
   throw err;
 } finally {
   client.release();
@@ -184,8 +184,8 @@ try {
 ```javascript
 // For Vercel Edge Functions, specify nearest region
 export const config = {
-  runtime: "edge",
-  regions: ["iad1"], // Region nearest to your Neon DB
+  runtime: 'edge',
+  regions: ['iad1'], // Region nearest to your Neon DB
 };
 
 // For Cloudflare Workers, consider using Hyperdrive
@@ -199,10 +199,10 @@ For Drizzle ORM integration with the serverless driver, see `neon-drizzle.md`.
 ### Prisma
 
 ```typescript
-import { neonConfig } from "@neondatabase/serverless";
-import { PrismaNeon, PrismaNeonHTTP } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma/client";
-import ws from "ws";
+import { neonConfig } from '@neondatabase/serverless';
+import { PrismaNeon, PrismaNeonHTTP } from '@prisma/adapter-neon';
+import { PrismaClient } from '@prisma/client';
+import ws from 'ws';
 
 const connectionString = process.env.DATABASE_URL;
 neonConfig.webSocketConstructor = ws;
@@ -219,8 +219,8 @@ export const prismaClientWs = new PrismaClient({ adapter: adapterWs });
 ### Kysely
 
 ```typescript
-import { Pool } from "@neondatabase/serverless";
-import { Kysely, PostgresDialect } from "kysely";
+import { Pool } from '@neondatabase/serverless';
+import { Kysely, PostgresDialect } from 'kysely';
 
 const dialect = new PostgresDialect({
   pool: new Pool({ connectionString: process.env.DATABASE_URL }),
@@ -236,8 +236,8 @@ const db = new Kysely({ dialect });
 ```javascript
 // Pool error handling
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-pool.on("error", (err) => {
-  console.error("Unexpected error on idle client", err);
+pool.on('error', err => {
+  console.error('Unexpected error on idle client', err);
   process.exit(-1);
 });
 
@@ -245,10 +245,10 @@ pool.on("error", (err) => {
 try {
   const [post] = await sql`SELECT * FROM posts WHERE id = ${postId}`;
   if (!post) {
-    return new Response("Not found", { status: 404 });
+    return new Response('Not found', { status: 404 });
   }
 } catch (err) {
-  console.error("Database query failed:", err);
-  return new Response("Server error", { status: 500 });
+  console.error('Database query failed:', err);
+  return new Response('Server error', { status: 500 });
 }
 ```

@@ -1,11 +1,21 @@
 import js from '@eslint/js';
+import jest from 'eslint-plugin-jest';
+import tseslint from 'typescript-eslint';
 
 export default [
   js.configs.recommended,
+
+  // ✅ ADD THIS (TypeScript support)
+  ...tseslint.configs.recommended,
+
   {
+    files: ['**/*.ts'],
     languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
+      parser: tseslint.parser,
+      parserOptions: {
+        sourceType: 'module',
+        ecmaVersion: 2022,
+      },
       globals: {
         console: 'readonly',
         process: 'readonly',
@@ -19,11 +29,12 @@ export default [
         clearInterval: 'readonly',
       },
     },
+  },
+
+  {
     rules: {
       indent: ['error', 2, { SwitchCase: 1 }],
-      // 🔥 Windows fix
       'linebreak-style': 'off',
-
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
@@ -34,21 +45,21 @@ export default [
       'prefer-arrow-callback': 'error',
     },
   },
+
+  // ✅ FIX: include TS tests too
   {
-    files: ['tests/**/*.js'],
+    files: ['tests/**/*.{js,ts}'],
+    plugins: {
+      jest,
+    },
     languageOptions: {
-      globals: {
-        describe: 'readonly',
-        it: 'readonly',
-        expect: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        beforeAll: 'readonly',
-        afterAll: 'readonly',
-        jest: 'readonly',
-      },
+      globals: jest.environments.globals.globals,
+    },
+    rules: {
+      ...jest.configs.recommended.rules,
     },
   },
+
   {
     ignores: ['node_modules/**', 'coverage/**', 'logs/**', 'drizzle/**'],
   },

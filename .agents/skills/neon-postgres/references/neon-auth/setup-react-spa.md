@@ -41,8 +41,8 @@ Create `src/lib/auth-client.ts`:
 **For `@neondatabase/auth`:**
 
 ```typescript
-import { createAuthClient } from "@neondatabase/auth";
-import { BetterAuthReactAdapter } from "@neondatabase/auth/react/adapters";
+import { createAuthClient } from '@neondatabase/auth';
+import { BetterAuthReactAdapter } from '@neondatabase/auth/react/adapters';
 
 export const authClient = createAuthClient(import.meta.env.VITE_NEON_AUTH_URL, {
   adapter: BetterAuthReactAdapter(),
@@ -52,8 +52,8 @@ export const authClient = createAuthClient(import.meta.env.VITE_NEON_AUTH_URL, {
 **For `@neondatabase/neon-js`:**
 
 ```typescript
-import { createClient } from "@neondatabase/neon-js";
-import { BetterAuthReactAdapter } from "@neondatabase/neon-js/auth/react/adapters";
+import { createClient } from '@neondatabase/neon-js';
+import { BetterAuthReactAdapter } from '@neondatabase/neon-js/auth/react/adapters';
 
 export const client = createClient({
   auth: {
@@ -107,31 +107,31 @@ Skip this section if you're building custom auth forms. Use this if you want pre
 **If NOT using Tailwind** - Add to `src/main.tsx` or entry point:
 
 ```typescript
-import "@neondatabase/auth/ui/css";
+import '@neondatabase/auth/ui/css';
 ```
 
 **If using Tailwind CSS v4** - Add to main CSS file (e.g., index.css):
 
 ```css
-@import "tailwindcss";
-@import "@neondatabase/auth/ui/tailwind";
+@import 'tailwindcss';
+@import '@neondatabase/auth/ui/tailwind';
 ```
 
 ### 5b. Update main.tsx with BrowserRouter
 
 ```tsx
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import "@neondatabase/auth/ui/css"; // if not using Tailwind
-import App from "./App";
-import { Providers } from "./providers";
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import '@neondatabase/auth/ui/css'; // if not using Tailwind
+import App from './App';
+import { Providers } from './providers';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Providers>
       <App />
     </Providers>
-  </BrowserRouter>,
+  </BrowserRouter>
 );
 ```
 
@@ -140,10 +140,10 @@ createRoot(document.getElementById("root")!).render(
 Create `src/providers.tsx`:
 
 ```tsx
-import { NeonAuthUIProvider } from "@neondatabase/auth/react/ui";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { authClient } from "./lib/auth-client";
-import type { ReactNode } from "react";
+import { NeonAuthUIProvider } from '@neondatabase/auth/react/ui';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { authClient } from './lib/auth-client';
+import type { ReactNode } from 'react';
 
 // Adapter for react-router-dom Link
 function Link({
@@ -159,14 +159,14 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <NeonAuthUIProvider
       authClient={authClient}
-      navigate={(path) => navigate(path)}
-      replace={(path) => navigate(path, { replace: true })}
+      navigate={path => navigate(path)}
+      replace={path => navigate(path, { replace: true })}
       onSessionChange={() => {
         // Optional: refresh data or invalidate cache
       }}
       Link={Link}
       social={{
-        providers: ["google", "github"],
+        providers: ['google', 'github'],
       }}
     >
       {children}
@@ -186,13 +186,13 @@ export function Providers({ children }: { children: ReactNode }) {
 ### 5d. Add Routes to App.tsx
 
 ```tsx
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams } from 'react-router-dom';
 import {
   AuthView,
   UserButton,
   SignedIn,
   SignedOut,
-} from "@neondatabase/auth/react/ui";
+} from '@neondatabase/auth/react/ui';
 
 // Auth page - handles /auth/sign-in, /auth/sign-up, etc.
 function AuthPage() {

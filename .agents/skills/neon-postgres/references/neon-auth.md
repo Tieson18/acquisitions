@@ -36,7 +36,7 @@ npm install @neondatabase/neon-js
 
 ```typescript
 // app/api/auth/[...path]/route.ts
-import { authApiHandler } from "@neondatabase/auth/next";
+import { authApiHandler } from '@neondatabase/auth/next';
 export const { GET, POST } = authApiHandler();
 ```
 
@@ -44,7 +44,7 @@ export const { GET, POST } = authApiHandler();
 
 ```typescript
 // lib/auth/client.ts
-import { createAuthClient } from "@neondatabase/auth/next";
+import { createAuthClient } from '@neondatabase/auth/next';
 export const authClient = createAuthClient();
 ```
 
@@ -65,8 +65,8 @@ function AuthStatus() {
 ### React SPA
 
 ```typescript
-import { createAuthClient } from "@neondatabase/auth";
-import { BetterAuthReactAdapter } from "@neondatabase/auth/react/adapters";
+import { createAuthClient } from '@neondatabase/auth';
+import { BetterAuthReactAdapter } from '@neondatabase/auth/react/adapters';
 
 const authClient = createAuthClient(import.meta.env.VITE_NEON_AUTH_URL, {
   adapter: BetterAuthReactAdapter(),
@@ -76,7 +76,7 @@ const authClient = createAuthClient(import.meta.env.VITE_NEON_AUTH_URL, {
 ### Node.js Backend
 
 ```typescript
-import { createAuthClient } from "@neondatabase/auth";
+import { createAuthClient } from '@neondatabase/auth';
 
 const auth = createAuthClient(process.env.NEON_AUTH_URL!);
 await auth.signIn.email({ email, password });
@@ -110,24 +110,24 @@ For detailed documentation:
 
 ```typescript
 // Auth client (Next.js)
-import { authApiHandler, createAuthClient } from "@neondatabase/auth/next";
+import { authApiHandler, createAuthClient } from '@neondatabase/auth/next';
 
 // Auth client (vanilla)
-import { createAuthClient } from "@neondatabase/auth";
+import { createAuthClient } from '@neondatabase/auth';
 
 // React adapter (NOT from main entry)
-import { BetterAuthReactAdapter } from "@neondatabase/auth/react/adapters";
+import { BetterAuthReactAdapter } from '@neondatabase/auth/react/adapters';
 
 // UI components
 import {
   NeonAuthUIProvider,
   AuthView,
   SignInForm,
-} from "@neondatabase/auth/react/ui";
-import { authViewPaths } from "@neondatabase/auth/react/ui/server";
+} from '@neondatabase/auth/react/ui';
+import { authViewPaths } from '@neondatabase/auth/react/ui/server';
 
 // CSS
-import "@neondatabase/auth/ui/css";
+import '@neondatabase/auth/ui/css';
 ```
 
 ## Common Mistakes

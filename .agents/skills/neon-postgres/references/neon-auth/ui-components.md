@@ -17,15 +17,15 @@ Pre-built UI components for authentication flows.
 
 ```typescript
 // In app/layout.tsx or entry point
-import "@neondatabase/auth/ui/css";
+import '@neondatabase/auth/ui/css';
 ```
 
 **With Tailwind v4:**
 
 ```css
 /* In app/globals.css */
-@import "tailwindcss";
-@import "@neondatabase/auth/ui/tailwind";
+@import 'tailwindcss';
+@import '@neondatabase/auth/ui/tailwind';
 ```
 
 ## NeonAuthUIProvider Setup
@@ -33,11 +33,11 @@ import "@neondatabase/auth/ui/css";
 ### Next.js App Router
 
 ```tsx
-"use client";
-import { NeonAuthUIProvider } from "@neondatabase/auth/react/ui";
-import { authClient } from "@/lib/auth/client";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+'use client';
+import { NeonAuthUIProvider } from '@neondatabase/auth/react/ui';
+import { authClient } from '@/lib/auth/client';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       onSessionChange={() => router.refresh()}
       Link={Link}
       social={{
-        providers: ["google", "github"],
+        providers: ['google', 'github'],
       }}
     >
       {children}
@@ -61,9 +61,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 ### React SPA with react-router-dom
 
 ```tsx
-import { NeonAuthUIProvider } from "@neondatabase/auth/react/ui";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { authClient } from "./lib/auth-client";
+import { NeonAuthUIProvider } from '@neondatabase/auth/react/ui';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { authClient } from './lib/auth-client';
 
 function Link({
   href,
@@ -78,12 +78,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NeonAuthUIProvider
       authClient={authClient}
-      navigate={(path) => navigate(path)}
-      replace={(path) => navigate(path, { replace: true })}
+      navigate={path => navigate(path)}
+      replace={path => navigate(path, { replace: true })}
       onSessionChange={() => {}}
       Link={Link}
       social={{
-        providers: ["google", "github"],
+        providers: ['google', 'github'],
       }}
     >
       {children}
@@ -101,11 +101,11 @@ Renders complete authentication pages.
 Create `app/auth/[path]/page.tsx`:
 
 ```tsx
-import { AuthView } from "@neondatabase/auth/react/ui";
-import { authViewPaths } from "@neondatabase/auth/react/ui/server";
+import { AuthView } from '@neondatabase/auth/react/ui';
+import { authViewPaths } from '@neondatabase/auth/react/ui/server';
 
 export function generateStaticParams() {
-  return Object.values(authViewPaths).map((path) => ({ path }));
+  return Object.values(authViewPaths).map(path => ({ path }));
 }
 
 export default async function AuthPage({
@@ -121,8 +121,8 @@ export default async function AuthPage({
 ### React SPA
 
 ```tsx
-import { Routes, Route, useParams } from "react-router-dom";
-import { AuthView } from "@neondatabase/auth/react/ui";
+import { Routes, Route, useParams } from 'react-router-dom';
+import { AuthView } from '@neondatabase/auth/react/ui';
 
 function AuthPage() {
   const { pathname } = useParams();
@@ -161,7 +161,7 @@ export default function App() {
 Conditional rendering based on authentication state.
 
 ```tsx
-import { SignedIn, SignedOut, UserButton } from "@neondatabase/auth/react/ui";
+import { SignedIn, SignedOut, UserButton } from '@neondatabase/auth/react/ui';
 
 function Navbar() {
   return (
@@ -183,7 +183,7 @@ function Navbar() {
 Displays user avatar with dropdown menu for account management.
 
 ```tsx
-import { UserButton } from "@neondatabase/auth/react/ui";
+import { UserButton } from '@neondatabase/auth/react/ui';
 
 function Header() {
   return (

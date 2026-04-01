@@ -11,6 +11,6 @@ export const updateUserSchema = z
     password: z.string().min(6).max(128).optional(),
     role: z.enum(['user', 'admin']).optional(),
   })
-  .refine((data) => Object.values(data).some((v) => v !== undefined), {
+  .refine(data => Object.values(data).some(v => v !== undefined), {
     message: 'At least one field must be provided for update',
   });

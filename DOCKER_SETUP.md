@@ -77,6 +77,7 @@ docker-compose -f docker-compose.dev.yml up
 ```
 
 This will:
+
 1. Start a Neon Local container (ephemeral Postgres proxy)
 2. Start your application container with hot reload
 3. Load environment variables from `.env.development` (the compose file uses `env_file`)
@@ -105,6 +106,7 @@ PORT=3000
 ```
 
 This references:
+
 - `NEON_LOCAL_HOST`: The Docker service name for the Neon Local proxy
 - `DATABASE_URL`: Connection string for the Neon Local instance
 - The application configuration in `src/config/database.ts` uses `NEON_LOCAL_HOST` to route queries through the HTTP API
@@ -227,6 +229,7 @@ export DATABASE_URL="postgresql://your_user:your_password@your_project.neon.tech
 
 docker-compose -f docker-compose.prod.yml up
 ```
+
 Or inline:
 
 ```bash
@@ -353,27 +356,30 @@ curl http://localhost:3000/health
 
 ### Environment Variables Reference
 
-| Variable | Development | Production | Required | Example |
-|----------|---|---|---|---|
-| `NODE_ENV` | `development` | `production` | ✅ | - |
-| `LOG_LEVEL` | `debug` | `info` | ✅ | `debug`, `info`, `warn`, `error` |
-| `PORT` | `3000` | `3000` | ✅ | - |
-| `DATABASE_URL` | Neon Local | Neon Cloud | ✅ | See above |
-| `NEON_LOCAL_HOST` | `neon-local` | *(not set)* | ❌ Dev only | - |
+| Variable          | Development   | Production   | Required    | Example                          |
+| ----------------- | ------------- | ------------ | ----------- | -------------------------------- |
+| `NODE_ENV`        | `development` | `production` | ✅          | -                                |
+| `LOG_LEVEL`       | `debug`       | `info`       | ✅          | `debug`, `info`, `warn`, `error` |
+| `PORT`            | `3000`        | `3000`       | ✅          | -                                |
+| `DATABASE_URL`    | Neon Local    | Neon Cloud   | ✅          | See above                        |
+| `NEON_LOCAL_HOST` | `neon-local`  | _(not set)_  | ❌ Dev only | -                                |
 
 ### Database URL Examples
 
 **Neon Local (Development)**:
+
 ```
 postgresql://postgres:postgres@neon-local:5432/acquisitions_db
 ```
 
 **Neon Cloud (Production)**:
+
 ```
 postgresql://user:password@project.neon.tech/dbname?sslmode=require
 ```
 
 **PostgreSQL Locally (Alternative)**:
+
 ```
 postgresql://postgres:password@localhost:5432/acquisitions_db
 ```
@@ -554,7 +560,7 @@ services:
     container_name: acquisitions-cache
     networks:
       - acquisitions-network
-  
+
   app:
     # ... existing config
     depends_on:
