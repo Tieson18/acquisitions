@@ -36,7 +36,6 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY package.json ./
 COPY drizzle ./drizzle
-COPY types.d.ts ./
 COPY drizzle.config.js ./
 EXPOSE 3000
 USER node
