@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/kubernetes-demo-api
+  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/k8s-demo-api
 
 jobs:
   build-and-push:
